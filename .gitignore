@@ -1,0 +1,33 @@
+# ─── Python / Django ─────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+.venv/
+/.venv
+*.sqlite3
+db.sqlite3
+vTontine/tontine_db
+.pytest_cache/
+.coverage
+htmlcov/
+# Uploads (avatars, pièces jointes du chat)
+vTontine/media/
+
+# ─── Secrets / env ───────────────────────────────────────────────────────────
+vTontine/.env
+.env
+
+# ─── Outils / IDE ────────────────────────────────────────────────────────────
+CLAUDE.md
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# ─── Flutter (vTontineMobile) ────────────────────────────────────────────────
+vTontineMobile/v_tontine_mobile/.dart_tool/
+vTontineMobile/v_tontine_mobile/.flutter-plugins
+vTontineMobile/v_tontine_mobile/.flutter-plugins-dependencies
+vTontineMobile/v_tontine_mobile/build/
+vTontineMobile/v_tontine_mobile/.idea/
