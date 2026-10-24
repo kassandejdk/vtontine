@@ -84,13 +84,26 @@ WSGI_APPLICATION = 'vTontine.wsgi.application'
 
 # Replace the DATABASES section of your settings.py with this
 DATABASE_URL = getenv("DATABASE_URL")
-DATABASES = {
-    "default": dj_database_url.parse(
-        DATABASE_URL,
-        conn_max_age=600,
-        ssl_require=True,
-    )
-}
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=getenv("DB_SSL_REQUIRE", "True") == "True",
+        )
+    }
+else:
+    # Repli local : variables DB_* (voir .env.example)
+    DATABASES = {
+        "default": {
+            "ENGINE": getenv("DB_ENGINE", "django.db.backends.postgresql"),
+            "NAME": getenv("DB_NAME", "tontine_db"),
+            "USER": getenv("DB_USER", ""),
+            "PASSWORD": getenv("DB_PASSWORD", ""),
+            "HOST": getenv("DB_HOST", "localhost"),
+            "PORT": getenv("DB_PORT", "5432"),
+        }
+    }
 
 
 
