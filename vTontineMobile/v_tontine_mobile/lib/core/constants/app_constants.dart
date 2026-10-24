@@ -1,12 +1,7 @@
 class AppConstants {
-  // Configurable par environnement :
-  //   flutter run --dart-define=API_URL=http://10.0.2.2:8000/api   (émulateur Android)
-  //   flutter run --dart-define=API_URL=http://192.168.1.77:8000/api (téléphone physique)
-  // À défaut, valeur par défaut ci-dessous.
   static const String baseUrl = String.fromEnvironment(
     'API_URL',
-    // defaultValue: 'http://192.168.11.131:8000/api',
-    defaultValue: 'http://10.220.6.35:8000/api',
+    defaultValue: 'https://vtontine.onrender.com/api',
   );
 
   // Lien de téléchargement de l'app (utilisé dans les messages d'invitation partagés)

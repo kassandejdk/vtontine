@@ -3,7 +3,8 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
-
+from os import getenv
+import dj_database_url
 load_dotenv()
 
 # True quand la suite tourne sous pytest (settings importés par pytest-django).
@@ -72,37 +73,26 @@ WSGI_APPLICATION = 'vTontine.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# Base de données PostgreSQL 
+
+# Replace the DATABASES section of your settings.py with this
+DATABASE_URL = getenv("DATABASE_URL")
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.parse(
+        DATABASE_URL,
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
 
-# Base de données : PostgreSQL en prod/dev, paramétrable via DB_ENGINE.
-# Sous pytest, on bascule sur SQLite par défaut (rapide, sans dépendance Postgres) ;
-# DB_ENGINE explicite reste prioritaire (ex. pour faire tourner les tests sur Postgres).
-# _default_engine = 'django.db.backends.sqlite3' if RUNNING_TESTS else 'django.db.backends.postgresql'
-# DB_ENGINE = os.getenv('DB_ENGINE', _default_engine)
 
-# if DB_ENGINE == 'django.db.backends.sqlite3':
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.getenv('DB_NAME', str(BASE_DIR / 'db.sqlite3')),
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': DB_ENGINE,
-#             'NAME': os.getenv('DB_NAME', 'tontine_db'),
-#             'USER': os.getenv('DB_USER', 'tontine_user'),
-#             'PASSWORD': os.getenv('DB_PASSWORD', 'tontine_password'),
-#             'HOST': os.getenv('DB_HOST', 'localhost'),
-#             'PORT': os.getenv('DB_PORT', '5432'),
-#         }
-#     }
 
 
 # Password validation
